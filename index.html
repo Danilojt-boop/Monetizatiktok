@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Sistema de Vídeos TikTok</title>
+</head>
+<body>
+  <header>
+    <div class="balance" id="balance">Saldo: 50 moedas</div>
+  </header>
 
+  <main>
+    <section class="authentication" id="auth-section">
+      <h2>Login ou Registro</h2>
+      <form id="register-form">
+        <input type="text" id="username" placeholder="Nome de Usuário" required>
+        <input type="password" id="password" placeholder="Senha" required>
+        <button type="submit">Registrar</button>
+      </form>
+
+      <form id="login-form">
+        <input type="text" id="login-username" placeholder="Nome de Usuário" required>
+        <input type="password" id="login-password" placeholder="Senha" required>
+        <button type="submit">Entrar</button>
+      </form>
+      <p id="auth-message"></p>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <h2>Painel de Controle</h2>
+      <button id="logout-btn">Sair</button>
+      <h3>Adicionar Link de Vídeo do TikTok</h3>
+      <button id="show-add-link-form">Adicionar Novo Link</button>
+      <form id="add-link-form" class="hidden">
+        <input type="url" id="tiktok-link" placeholder="URL do TikTok" required>
+        <button type="submit">Adicionar Link</button>
+      </form>
+      <p id="link-message"></p>
+
+      <h3>Links de Vídeos Adicionados</h3>
+      <ul id="video-list"></ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
