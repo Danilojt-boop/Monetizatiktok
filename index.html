@@ -50,3 +50,34 @@ se<!DOCTYPE html>
 <!-- (adicione isso dentro da seção #dashboard, após o botão Sair) -->
 <h3>Acessar Gerenciamento de Vídeos</h3>
 <button id="manage-videos-btn">Gerenciar Vídeos</button>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Gerenciamento de Vídeos</title>
+</head>
+<body>
+  <header>
+    <div class="balance" id="balance">Saldo: 50 moedas</div>
+    <button id="logout-btn">Sair</button>
+  </header>
+
+  <main>
+    <section>
+      <h2>Adicionar Link de Vídeo do TikTok</h2>
+      <form id="add-link-form">
+        <input type="url" id="tiktok-link" placeholder="URL do TikTok" required>
+        <button type="submit">Adicionar Link</button>
+      </form>
+      <p id="link-message"></p>
+
+      <h3>Links de Vídeos Adicionados</h3>
+      <ul id="video-list"></ul>
+    </section>
+  </main>
+
+  <script src="manage_videos.js"></script>
+</body>
+</html>
