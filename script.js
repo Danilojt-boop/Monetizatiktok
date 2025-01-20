@@ -1,4 +1,83 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const balanceDisplay = document.getElementById("balance");
+  const addLinkForm = document.getElementById("add-link-form");
+  const linkMessage = document.getElementById("link-message");
+  const videoList = document.getElementById("video-list");
+  const logoutBtn = document.getElementById("logout-btn");
+
+  let users = JSON.parse(localStorage.getItem("users")) || {};
+  let currentUser = localStorage.getItem("currentUser");
+
+  // Atualiza o saldo na interface
+  const updateBalanceDisplay = () => {
+    const user = users[currentUser];
+    balanceDisplay.textContent = `Saldo: ${user.balance} moedas`;
+  };
+
+  // Exibe os links de vídeo na lista
+  const displayVideoLinks = (links) => {
+    videoList.innerHTML = ""; // Limpa a lista antes de adicionar
+    links.forEach((link) => {
+      const li = document.createElement("li");
+      li.textContent = link;
+      const watchButton = document.createElement("button");
+      watchButton.textContent = "Assistir";
+      watchButton.onclick = () => openVideo(link);
+      li.appendChild(watchButton);
+      videoList.appendChild(li);
+    });
+  };
+
+  // Função para abrir o vídeo
+  const openVideo = (link) => {
+    window.open(link, "_blank");
+    updateBalanceAfterWatching();
+  };
+
+  // Atualiza o saldo após assistir ao vídeo
+  const updateBalanceAfterWatching = () => {
+    const user = users[currentUser];
+    user.balance += 10; // Adiciona 10 moedas
+    localStorage.setItem("users", JSON.stringify(users));
+    updateBalanceDisplay();
+  };
+
+  // Adicionar link de vídeo
+  addLinkForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const linkInput = document.getElementById("tiktok-link");
+    const link = linkInput.value.trim();
+    const user = users[currentUser];
+
+    if (user.balance >= 50) {
+      user.links.push(link);
+      user.balance -= 50; // Deduz 50 moedas
+      localStorage.setItem("users", JSON.stringify(users));
+      linkMessage.textContent = `Link adicionado com sucesso: ${link}`;
+      linkInput.value = "";
+      updateBalanceDisplay();
+      displayVideoLinks(user.links);
+    } else {
+      linkMessage.textContent = "Saldo insuficiente para adicionar um novo link.";
+      linkMessage.style.color = "red";
+    }
+  });
+
+  // Logout do usuário
+  logoutBtn.addEventListener("click", () => {
+    currentUser = null;
+    localStorage.removeItem("currentUser");
+    window.location.href = "index.html"; // Redireciona para a tela de login
+  });
+
+  // Inicializa a interface
+  updateBalanceDisplay();
+  if (currentUser) {
+    const user = users[currentUser];
+    displayVideoLinks(user.links || []);
+  }
+});
+document.addEventListener("DOMContentLoaded", () => {
   const registerForm = document.getElementById("register-form");
   const loginForm = document.getElementById("login-form");
   const authMessage = document.getElementById("auth-message");
